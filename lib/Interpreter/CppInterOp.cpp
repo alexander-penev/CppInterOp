@@ -3607,7 +3607,7 @@ namespace Cpp {
           if (addr) {
             loadedSymbols[symbol] =
 #if CLANG_VERSION_MAJOR < 17
-              llvm::orc::JITEvaluatedSymbol(addr, JITSymbolFlags::Exported);
+              llvm::JITEvaluatedSymbol(addr, JITSymbolFlags::Exported);
 #else
               llvm::orc::ExecutorSymbolDef(llvm::orc::ExecutorAddr::fromPtr(addr), JITSymbolFlags::Exported);
 #endif // CLANG_VERSION_MAJOR < 17
