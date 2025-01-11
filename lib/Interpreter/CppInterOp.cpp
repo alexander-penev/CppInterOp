@@ -3606,7 +3606,11 @@ namespace Cpp {
 
           if (addr) {
             loadedSymbols[symbol] =
+#if CLANG_VERSION_MAJOR < 17
+              JITEvaluatedSymbol(addr, JITSymbolFlags::Exported);
+#else
               llvm::orc::ExecutorSymbolDef(llvm::orc::ExecutorAddr::fromPtr(addr), JITSymbolFlags::Exported);
+#endif // CLANG_VERSION_MAJOR < 17
           } else {
             // Collect all failing symbols, delegate their responsibility and then
             // fail their materialization. R->defineNonExistent() sounds like it
